@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     
     'api',
-    'user_auth.apps.UserAuthConfig',
+    'User_Auth.apps.UserAuthConfig',
 ]
 
 MIDDLEWARE = [
@@ -134,4 +134,4 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'user_auth.UserReg'
+AUTH_USER_MODEL = 'User_Auth.UserReg'
