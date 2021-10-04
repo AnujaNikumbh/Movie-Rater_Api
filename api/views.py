@@ -4,7 +4,7 @@ from .models import Movie,Rating
 from rest_framework.decorators import action
 from django.contrib.auth.models import User
 from rest_framework.response import Response
-from .serializers import MovieSerializers,RatingSerializers,UserSerializer
+from .serializers import MovieSerializers,RatingSerializers ,UserSerializer
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 # Create your views here.
