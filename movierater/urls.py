@@ -8,5 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     path('auth/',obtain_auth_token),
-    path('api/', include('User_Auth.urls')),
-]
+    path('user_auth/', include('User_Auth.urls')),
+
+   
+ ]
