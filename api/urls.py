@@ -1,11 +1,9 @@
-from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from rest_framework import routers
-from django.conf.urls import include
-from .views import MovieViewset,RatingViewset,UserViewSet
-
-router =routers.DefaultRouter()
-router.register('movies',MovieViewset)
+from . views import MovieViewset,RatingViewset ,UserViewSet
+router = routers.DefaultRouter()
+# Register the viewsets
+router.register('movies', MovieViewset)
 router.register('ratings',RatingViewset)
 router.register('users', UserViewSet)
 
