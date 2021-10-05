@@ -92,7 +92,7 @@ class LogoutView(APIView):
     def post(self, request):
         
         response = Response()
-        print(response.cookies.get('jwt'))
+        #print(response.cookies.get('jwt'))
         response.delete_cookie('jwt')
 
         response.data = {
