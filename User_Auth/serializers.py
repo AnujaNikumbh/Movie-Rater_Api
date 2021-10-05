@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import MinLengthValidator
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
+
 from django.contrib.auth.models import User
 from re import search
 
@@ -16,7 +17,7 @@ class UserSerializer(serializers.ModelSerializer):
     username = serializers.CharField(validators=[
         UniqueValidator(queryset=User.objects.all())
     ])
-    '''
+    
     def validate_username(self, value):
         if len(value) < 9 or len(value) > 16:
             raise ValidationError("Username must be 10 to 15 letters")
@@ -25,11 +26,11 @@ class UserSerializer(serializers.ModelSerializer):
         if search('[a-z,A-Z]', value) is None:
             raise ValidationError("Make sure your user name has a letter in it")
 
-        return value'''
+        return value
 
     # Validation for the password
     password = serializers.CharField()
-    '''
+    
     def validate(self, data):
         # Validation for the password
         SpecialSym = ['$', '@', '#']
@@ -52,12 +53,12 @@ class UserSerializer(serializers.ModelSerializer):
             raise ValidationError('the password should have at least one of the symbols $@#')
           
     
-        return data'''
+        return data
     class Meta:
         model = User
         fields = ['id', 'first_name', 'last_name', 'username', 'email', 'password'
                 ]
-        extra_kwargs = {
+        extra_kwargs = {   #hide password
             'password': {'write_only': True}
             #'confirm_password': {'write_only': True}
         }
@@ -66,10 +67,10 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         password = validated_data.pop('password', None)
         instance = self.Meta.model(**validated_data)
-        pass
+        #pass
         if password is not None:
             instance.set_password(password)
-        instance.save()
+        instance.save()  #save password
         return instance
 
         
