@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'rest_framework',
     'rest_framework.authtoken', 
     'api',
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -81,15 +83,20 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+}
 }
 
 # Rest Framework settings
 '''REST_FRAMEWORK = {
+       'DEFAULT_AUTHENTICATION_CLASSES': (
+               'rest_framework.authentication.TokenAuthentication',
+    ),
     'DEFAULT_PERMISSION_CLASSES' : {
         'rest_framework.permissions.IsAuthenticated',
     }
 }'''
+
+
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -136,4 +143,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-#AUTH_USER_MODEL = 'User_Auth.UserReg'
+#AUTH_USER_MODEL = 'User_Auth.User'
+CORS_ORIGIN_ALLOW_ALL=True
+CORS_ALLOW_CREDENTIALS= True

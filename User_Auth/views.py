@@ -11,8 +11,8 @@ from django.contrib.auth.models import User
 
 class RegisterView(APIView):
     
-    def get(self, request):
-        return Response("Hii")
+    def post(self, request):
+        
         serializer = UserSerializer(data=request.data)
         #print(request.data['password'],request.data['confirm_password'])
         
