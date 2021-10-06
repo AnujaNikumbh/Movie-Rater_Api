@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from .serializers import UserSerializer
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.response import Response
+from jwt import encode,decode, ExpiredSignatureError
 import datetime,jwt
 from django.contrib.auth.models import User
 
@@ -51,23 +52,24 @@ class LoginView(APIView):
         payload = {
             'id': user.id,
             'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
-            'iat': datetime.datetime.utcnow()
+            'iat': datetime.datetime.utcnow(),
         }
 
-        token = jwt.encode(payload, 'secret', algorithm='HS256')
+        token = jwt.encode(payload, 'secret', algorithm='HS256') 
 
         response = Response()
         response.set_cookie(key='jwt', value=token, httponly=True)
         response.data = {
             'jwt': token
         }
-
+   
         return Response({
             'user_name': user.username,
             'email': user.email,
             'token': response.data,
             'message': 'login successfully'
         })
+
 
 
 class UserView(APIView):
@@ -92,13 +94,13 @@ class LogoutView(APIView):
     def post(self, request):
         
         response = Response()
-        #print(response.cookies.get('jwt'))
+        print(response.cookies.get('jwt'))
         response.delete_cookie('jwt')
 
         response.data = {
             'message': 'success'
         }
-        return response
+        return response 
 
     
 
