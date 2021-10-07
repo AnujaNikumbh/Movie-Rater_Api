@@ -87,7 +87,7 @@ DATABASES = {
 }
 
 # Rest Framework settings
-'''REST_FRAMEWORK = {
+REST_FRAMEWORK = {
        'DEFAULT_AUTHENTICATION_CLASSES': (
                #'rest_framework.authentication.TokenAuthentication',
                'User_Auth.verify.JWTAuthentication',
@@ -95,7 +95,7 @@ DATABASES = {
     'DEFAULT_PERMISSION_CLASSES' : {
         'rest_framework.permissions.IsAuthenticated',
     }
-}'''
+}
 
 
 # Password validation
