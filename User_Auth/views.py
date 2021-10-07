@@ -6,9 +6,16 @@ from rest_framework.response import Response
 from jwt import encode,decode, ExpiredSignatureError
 import datetime,jwt
 from django.contrib.auth.models import User
-
-
-
+from rest_framework import viewsets
+from rest_framework.decorators import api_view
+from django.contrib.auth import get_user_model
+from rest_framework import exceptions
+from rest_framework.permissions import AllowAny
+from rest_framework.decorators import api_view , permission_classes
+from django.views.decorators.csrf import ensure_csrf_cookie
+from .auth import generate_access_token,generate_refresh_token
+from django.views.decorators.csrf import csrf_protect
+from django.conf import settings
 
 class RegisterView(APIView):
     
@@ -104,3 +111,4 @@ class LogoutView(APIView):
 
     
 
+ 
