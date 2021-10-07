@@ -1,7 +1,7 @@
 import datetime
 import jwt
 from django.conf import settings
-
+ 
 def generate_access_token(user):
     
     access_token_payload = {
