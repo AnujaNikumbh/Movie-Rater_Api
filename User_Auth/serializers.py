@@ -2,16 +2,18 @@ from django.core.exceptions import ValidationError
 from django.core.validators import MinLengthValidator
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
-
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
+
+#from django.contrib.auth.models import get_user_model
 from re import search
 
 
 class UserSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(
+    '''email = serializers.EmailField(
         required=True,
         validators=[UniqueValidator(queryset=User.objects.all())]
-    )
+    )'''
 
     # set custom and Unique validation to username field
     username = serializers.CharField(validators=[
@@ -29,7 +31,7 @@ class UserSerializer(serializers.ModelSerializer):
         return value
 
     # Validation for the password
-    password = serializers.CharField()
+    #password = serializers.CharField()
     
     def validate(self, data):
         # Validation for the password
@@ -55,7 +57,9 @@ class UserSerializer(serializers.ModelSerializer):
     
         return data
     class Meta:
-        model = User
+        #model = User
+        model= get_user_model()
+        
         fields = ['id', 'first_name', 'last_name', 'username', 'email', 'password'
                 ]
         extra_kwargs = {   #hide password
