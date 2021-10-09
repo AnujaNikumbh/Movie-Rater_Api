@@ -85,16 +85,17 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
 }
 }
-
+CORS_ORIGIN_ALLOW_ALL=True
+CORS_ALLOW_CREDENTIALS= True
+#CORS_ORIGIN_WHITELIST=[' https://localhost:300']
 # Rest Framework settings
 REST_FRAMEWORK = {
-       'DEFAULT_AUTHENTICATION_CLASSES': (
-               #'rest_framework.authentication.TokenAuthentication',
-               'User_Auth.verify.JWTAuthentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES' : {
-        'rest_framework.permissions.IsAuthenticated',
-    }
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+     'User_Auth.verify.JWTAuthentication',
+    ),    
+    'DEFAULT_PERMISSION_CLASSES': (
+    'rest_framework.permissions.IsAuthenticated',
+    )
 }
 
 
@@ -145,6 +146,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 #AUTH_USER_MODEL = 'User_Auth.User'
-CORS_ORIGIN_ALLOW_ALL=True
-CORS_ALLOW_CREDENTIALS= True
-#CORS_ORIGIN_WHITELIST=[' http://127.0.0.1:8000/']
