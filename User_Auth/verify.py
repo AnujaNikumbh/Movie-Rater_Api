@@ -17,14 +17,12 @@ class JWTAuthentication(BaseAuthentication):
 
         User = get_user_model()
         authorization_heaader = request.headers.get('Authorization')
-
         if not authorization_heaader:
             return None
         try:
             access_token = authorization_heaader.split(' ')[1]
             payload = jwt.decode(
                 access_token, settings.SECRET_KEY, algorithms=['HS256'])
-
         except jwt.ExpiredSignatureError:
             raise exceptions.AuthenticationFailed('access_token expired')
         except IndexError:
