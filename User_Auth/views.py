@@ -1,3 +1,4 @@
+
 from re import A
 from django.shortcuts import render, HttpResponse
 from rest_framework.views import APIView
@@ -9,10 +10,9 @@ import datetime,jwt
 from django.contrib.auth.models import User
 from django.http import HttpRequest
 from django.http import HttpResponse
-
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, logout
 from rest_framework import exceptions
 from rest_framework.permissions import AllowAny,IsAuthenticated
 from rest_framework.decorators import api_view , permission_classes
@@ -82,12 +82,17 @@ def login_view(request):
 
     return response
 
-
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])        
 def user(request):
-    user = request.user
-    serialized_user = UserSerializer(user).data
-    return Response({'user':serialized_user} )
+    refresh_token = request.COOKIES.get('refreshtoken')
+    if refresh_token is None:
+            raise exceptions.AuthenticationFailed(
+            'Authentication credentials were not provided.')
+    else:
+        user = request.user
+        serialized_user = UserSerializer(user).data
+        return Response({'user':serialized_user} )
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -95,9 +100,9 @@ def User_logout(request):
     try:
         
         response = Response()
-        response.delete_cookie('refresh_token')
+        response.delete_cookie('refreshtoken')
         response.delete_cookie('csrftoken')
-        User_logout(request)
+        logout(request)
 
         response.data={
             'message':'User logged out successfully'
